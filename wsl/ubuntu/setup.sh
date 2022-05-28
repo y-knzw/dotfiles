@@ -10,7 +10,7 @@ curl -sL https://get.docker.com | sudo sh
 sudo usermod -aG docker $USER
 
 # Install Zsh
-sudo apt install -y zsh
+sudo apt -y install zsh
 
 # Install prezto
 ./prezto.sh
@@ -26,7 +26,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Install unzip
-sudo apt install -y unzip
+sudo apt -y install unzip
 
 # Install zenhan
 ./zenhan.sh

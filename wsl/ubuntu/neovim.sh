@@ -1,10 +1,7 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install -y software-properties-common python3-software-properties
-sudo add-apt-repository -y ppa:neovim-ppa/stable
-sudo apt update
-sudo apt install -y neovim
+sudo add-apt-repository -y ppa:neovim-ppa/stable && sudo apt update
+sudo apt -y install software-properties-common python3-software-properties neovim
 
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --set vi /usr/bin/nvim

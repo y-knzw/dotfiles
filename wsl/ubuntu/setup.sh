@@ -34,11 +34,33 @@ sudo apt -y install unzip
 # Install win32yank
 ./win32yank.sh
 
+# Install Open SSH Client and socat
+sudo apt -y install openssh-client socat
+
 # Set Neovim config
-mkdir -p ${HOME}/.config/nvim
-curl -sL https://get.gri.vet/dotfiles/.config/nvim/init.vim -o ${HOME}/.config/nvim/init.vim
+mkdir -p ${HOME}/.config/nvim && cp ../../.config/nvim/init.vim ${HOME}/.config/nvim/
 
 # Set WSL distribution config
-sudo ln -s `pwd`/etc/wsl.conf /etc/wsl.conf
+sudo cp ./etc/wsl.conf /etc/wsl.conf
+
+# Set auto run docker
+echo '
+# Run docker
+if [ $(service docker status | awk '{print $4}') = "not" ]; then
+  sudo service docker start > /dev/null
+fi' >> ~/.zprofile
+
+# Set auto run SSH agent
+echo '
+# Run SSH agent
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   # Check for a currently running instance of the agent
+   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+   if [ "$RUNNING_AGENT" = "0" ]; then
+        # Launch a new instance of the agent
+        ssh-agent -s &> $HOME/.ssh/ssh-agent
+   fi
+   eval `cat $HOME/.ssh/ssh-agent`
+fi' >> ~/.zprofile
 
 echo "Please re-login for the new changes to take effect."

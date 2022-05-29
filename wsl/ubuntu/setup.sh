@@ -19,7 +19,7 @@ sudo apt -y install zsh
 sudo chsh $USER -s /bin/zsh
 
 # Install neovim
-./neovim.sh
+../../scripts/neovim.sh
 
 # Install vim-plug
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -35,7 +35,8 @@ sudo apt -y install unzip
 ./win32yank.sh
 
 # Set Neovim config
-mkdir -p ${HOME}/.config/nvim && ln -s `pwd`/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim
+mkdir -p ${HOME}/.config/nvim
+curl -sL https://get.gri.vet/dotfiles/.config/nvim/init.vim -o ${HOME}/.config/nvim/init.vim
 
 # Set WSL distribution config
 sudo ln -s `pwd`/etc/wsl.conf /etc/wsl.conf

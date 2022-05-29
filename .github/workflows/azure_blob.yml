@@ -4,13 +4,23 @@ on:
     branches:
       - main
 jobs:
-  upload:
+  upload_dotfiles:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: bacongobbler/azure-blob-storage-upload@main
         with:
-          source_dir: 'public'
+          source_dir: 'dotfiles'
           container_name: 'dotfiles'
+          connection_string: ${{ secrets.CONNECTION_STRING }}
+          sync: 'true'
+  upload_scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: bacongobbler/azure-blob-storage-upload@main
+        with:
+          source_dir: 'scripts'
+          container_name: 'scripts'
           connection_string: ${{ secrets.CONNECTION_STRING }}
           sync: 'true'

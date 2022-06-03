@@ -43,24 +43,4 @@ mkdir -p ${HOME}/.config/nvim && cp ../../.config/nvim/init.vim ${HOME}/.config/
 # Set WSL distribution config
 sudo cp ./etc/wsl.conf /etc/wsl.conf
 
-# Set auto run docker
-echo '
-# Run docker
-if [ $(service docker status | awk '{print $4}') = "not" ]; then
-  sudo service docker start > /dev/null
-fi' >> ~/.zprofile
-
-# Set auto run SSH agent
-echo '
-# Run SSH agent
-if [ -z "$SSH_AUTH_SOCK" ]; then
-   # Check for a currently running instance of the agent
-   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
-   if [ "$RUNNING_AGENT" = "0" ]; then
-        # Launch a new instance of the agent
-        ssh-agent -s &> $HOME/.ssh/ssh-agent
-   fi
-   eval `cat $HOME/.ssh/ssh-agent`
-fi' >> ~/.zprofile
-
 echo "Please re-login for the new changes to take effect."
